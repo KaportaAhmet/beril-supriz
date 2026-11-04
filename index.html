@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmet & Beril</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #ff4b72;
+            --secondary: #ff85a2;
+            --accent: #ffe6ea;
+            --text: #2c3e50;
+            --bg: #fff5f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: white;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 20px rgba(255, 75, 114, 0.2);
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .counter-container {
+            background: white;
+            max-width: 500px;
+            margin: -25px auto 30px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .counter-title {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .counter-box {
+            background: var(--accent);
+            padding: 10px 5px;
+            border-radius: 12px;
+        }
+
+        .counter-number {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .counter-label {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 40px 0 20px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-card .caption {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .letter-container {
+            max-width: 650px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .letter-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+            line-height: 1.8;
+            color: #444;
+            border-left: 5px solid var(--primary);
+        }
+
+        .reasons-container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .reason-card {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .reason-card:hover {
+            background: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .reason-card span.heart {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .btn-surprise {
+            display: block;
+            margin: 40px auto;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #ff4b72 0%, #ff7eb3 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 75, 114, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-surprise:active {
+            transform: scale(0.95);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Ahmet & Beril</h1>
+        <p>İyi ki sen, her zaman sen... ❤️</p>
+    </div>
+
+    <div class="counter-container">
+        <div class="counter-title">Birlikte Geçirdiğimiz Süre</div>
+        <div class="counter-grid">
+            <div class="counter-box">
+                <div class="counter-number" id="days">0</div>
+                <div class="counter-label">Gün</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-number" id="hours">0</div>
+                <div class="counter-label">Saat</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-number" id="minutes">0</div>
+                <div class="counter-label">Dakika</div>
+            </div>
+            <div class="counter-box">
+                <div class="counter-number" id="seconds">0</div>
+                <div class="counter-label">Saniye</div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Anılarımız</h2>
+    <div class="gallery-grid">
+        <div class="photo-card">
+            <img src="https://i.hizliresim.com/5lo0st8z.jpg" alt="Anı 1">
+            <div class="caption">En özel anlarımızdan biri... ✨</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://i.hizliresim.com/qwmomc73.jpg" alt="Anı 2">
+            <div class="caption">Gülüşünle güzelleşen her an ❤️</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://i.hizliresim.com/jkl4dact.jpg" alt="Anı 3">
+            <div class="caption">Birlikte çok güzeliz... 💕</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://i.hizliresim.com/ium6kizc.jpg" alt="Anı 4">
+            <div class="caption">İyi ki hayatımdasın 🌸</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Sana Özel Mektubum</h2>
+    <div class="letter-container">
+        <div class="letter-card">
+            Birtaneeemmmmm seni çok fazla üzmüş olsam da kırmış olsam da seni yine de çooookkkkkk seviyorummmmm. İyi ki benim sevgilimsin, iyi ki tanışmışız seninle, iyi ki o gezilere gitmişim. Lise hayatımın en güzel zamanlarını seninle geçirdim. Bir daha dünyaya gelsem yine seninle olmayı seçerdim. Seni çooookkkkkk seviyoruummmmmm.
+            <br><br>
+            <strong>Aşkın Ahmet</strong>
+        </div>
+    </div>
+
+    <h2 class="section-title">Seni Sevmemin Nedenleri</h2>
+    <div class="reasons-container">
+        <div class="reason-card">
+            <span class="heart">❤️</span>
+            <div>Seni sevmem için bir nedene ihtiyacım yok birtanem. Ben seni ilk gördüğüm anda sevdim, hayatımın sonuna kadar da seveceğim. Ben seni bir sebepten dolayı sevmedim, sen bana seni sevmemem için hiçbir neden vermedin. Bu dünyadaki en büyük şansımsın.</div>
+        </div>
+        <div class="reason-card"><span class="heart">💖</span><div>Bana olan sevgin</div></div>
+        <div class="reason-card"><span class="heart">💖</span><div>Senin o mükemmelliğin ve güzelliğin</div></div>
+        <div class="reason-card"><span class="heart">💖</span><div>Saçlarının rengi, uzunluğu ve her bir teli</div></div>
+        <div class="reason-card"><span class="heart">💖</span><div>Gözlerinin bana bakışı, dudakların, yanakların</div></div>
+        <div class="reason-card"><span class="heart">💖</span><div>Beni her konuda anlaman ve hiçbir konuda yargılamaman</div></div>
+        <div class="reason-card"><span class="heart">💖</span><div>Benim bütün salaklıklarıma, aptallıklarıma göğüs germen</div></div>
+        <div class="reason-card"><span class="heart">💖</span><div>Her zaman yanımda olman</div></div>
+        <div class="reason-card"><span class="heart">💖</span><div>Sana yük bindirmek istemeyip derdimi anlatmak istemediğimde bile her zaman yanımda olduğunu bana hatırlatman...</div></div>
+        <div class="reason-card">
+            <span class="heart">💕</span>
+            <div>Ben böyle daha çok özellik sayarım da yaptığım site bu kadar özelliği kaldırabilir mi bilmiyorum. Seni gerçekten çok seviyorum!</div>
+        </div>
+    </div>
+
+    <button class="btn-surprise" onclick="triggerConfetti()">Seni Çok Seviyorum! 🎉</button>
+
+    <footer>
+        Ahmet tarafından Beril için sevgiyle yapıldı ❤️
+    </footer>
+
+    <script>
+        // Çıkma Tarihi: 28 Haziran 2025
+        const startDate = new Date(2025, 5, 28, 0, 0, 0);
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff < 0) {
+                document.getElementById('days').innerText = "0";
+                document.getElementById('hours').innerText = "0";
+                document.getElementById('minutes').innerText = "0";
+                document.getElementById('seconds').innerText = "0";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+</html>
